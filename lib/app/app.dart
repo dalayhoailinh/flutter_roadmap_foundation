@@ -14,7 +14,7 @@ class RoadmapApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      initialRoute: AppRouter.counterRoute,
+      initialRoute: AppRouter.home,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
