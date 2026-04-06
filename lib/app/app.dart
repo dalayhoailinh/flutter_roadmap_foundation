@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/constants/app_colors.dart';
 import 'router.dart';
 
 class RoadmapApp extends StatelessWidget {
@@ -11,8 +12,16 @@ class RoadmapApp extends StatelessWidget {
       title: 'Flutter Roadmap Foundation',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.background,
+        colorScheme: const ColorScheme.dark(
+          primary: AppColors.primary,
+          surface: AppColors.surface,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.background,
+          elevation: 0,
+        ),
       ),
       initialRoute: AppRouter.home,
       onGenerateRoute: AppRouter.onGenerateRoute,
