@@ -43,6 +43,17 @@ class PortfolioPage extends StatelessWidget {
             pinned: true,
             backgroundColor: AppColors.background,
             elevation: 0,
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.bookmark_outlined,
+                  color: AppColors.primary,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/watchlist');
+                },
+              ),
+            ],
             title: const Text('Portfolio', style: AppTextStyles.titleMedium),
             flexibleSpace: FlexibleSpaceBar(
               background: SafeArea(
