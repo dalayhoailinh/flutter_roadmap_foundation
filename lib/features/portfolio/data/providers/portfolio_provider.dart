@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../portfolio/domain/entities/asset.dart';
+import '../../domain/entities/asset.dart';
 
 class PortfolioAsyncNotifier extends AsyncNotifier<List<Asset>> {
   @override
