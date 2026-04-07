@@ -67,9 +67,12 @@ class LoginPage extends ConsumerWidget {
                             color: Colors.white,
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'Đăng nhập (Demo)',
-                          style: AppTextStyles.bodyMedium,
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                 ),
               ),

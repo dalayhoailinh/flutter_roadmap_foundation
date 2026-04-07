@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/constants/app_colors.dart';
 import 'router.dart';
 
-class RoadmapApp extends StatelessWidget {
+class RoadmapApp extends ConsumerWidget {
   const RoadmapApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
     return MaterialApp.router(
       title: 'Flutter Roadmap Foundation',
       debugShowCheckedModeBanner: false,
@@ -18,7 +21,7 @@ class RoadmapApp extends StatelessWidget {
           displayColor: AppColors.textPrimary,
         ),
       ),
-      routerConfig: appRouter,
+      routerConfig: router,
     );
   }
 }
