@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../auth/data/providers/auth_notifier.dart';
 import '../../../watchlist/data/providers/portfolio_provider.dart';
 import '../../domain/entities/asset.dart';
 import '../widgets/asset_list_item.dart';
@@ -39,11 +40,11 @@ class PortfolioPage extends ConsumerWidget {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.bookmark_outlined,
-                  color: AppColors.primary,
+                  Icons.logout_rounded,
+                  color: AppColors.negativeGain,
                 ),
                 onPressed: () {
-                  context.push('/watchlist');
+                  ref.read(authProvider.notifier).logout();
                 },
               ),
             ],
