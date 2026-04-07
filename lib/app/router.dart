@@ -8,7 +8,7 @@ import '../features/counter/domain/usecases/counter_use_cases.dart';
 import '../features/counter/presentation/counter_page.dart';
 import '../features/market/presentation/pages/market_page.dart';
 import '../features/portfolio/presentation/pages/portfolio_page.dart';
-import '../features/shell/presentation/app_shell.dart';
+import '../features/shell/presentation/pages/app_shell.dart';
 import '../features/watchlist/presentation/pages/watchlist_page.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {

@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class AppShell extends StatelessWidget {
   final Widget child;
 
   const AppShell({super.key, required this.child});
 
+  static const _tabs = ['/', '/watchlist', '/counter', '/market'];
+
   @override
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).matchedLocation;
-    final currentIndex = _locationToIndex(location);
+    final currentIndex = _tabs.indexWhere(
+      (tab) => location == tab || location.startsWith('$tab/'),
+    );
 
     return Scaffold(
       backgroundColor: AppColors.background,
       body: child,
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
         backgroundColor: AppColors.surface,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
-        onTap: (index) => _onTabTap(context, index),
+        onTap: (index) => context.go(_tabs[index]),
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.pie_chart_rounded),
@@ -35,28 +40,12 @@ class AppShell extends StatelessWidget {
             icon: const Icon(Icons.add_circle_outline_rounded),
             label: 'Counter',
           ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.show_chart),
+            label: 'Market',
+          ),
         ],
       ),
     );
-  }
-
-  int _locationToIndex(String location) {
-    if (location.startsWith('/watchlist')) return 1;
-    if (location.startsWith('/counter')) return 2;
-    return 0; // '/' Portfolio
-  }
-
-  void _onTabTap(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        context.go('/');
-        break;
-      case 1:
-        context.go('/watchlist');
-        break;
-      case 2:
-        context.go('/counter');
-        break;
-    }
   }
 }
