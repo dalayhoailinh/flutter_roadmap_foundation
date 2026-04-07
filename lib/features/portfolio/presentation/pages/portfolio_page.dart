@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../auth/data/providers/auth_notifier.dart';
-import '../../../watchlist/data/providers/portfolio_provider.dart';
+import '../../data/providers/portfolio_provider.dart';
 import '../../domain/entities/asset.dart';
 import '../widgets/asset_list_item.dart';
 import '../widgets/balance_card.dart';
