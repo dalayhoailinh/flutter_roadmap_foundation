@@ -9,6 +9,11 @@ abstract final class AppTextStyles {
     color: AppColors.textPrimary,
     letterSpacing: -0.5,
   );
+  static const TextStyle titleLarge = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+  );
   static const TextStyle titleMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
