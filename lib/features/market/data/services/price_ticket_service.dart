@@ -22,6 +22,21 @@ class PriceTicketService {
 
     while (true) {
       await Future<void>.delayed(const Duration(seconds: 1));
+
+      final ticker = tickers[index % tickers.length];
+      final base = _basePrices[ticker]!;
+
+      final changePercent = (_random.nextDouble() - 0.5) * 4;
+      final newPrice = base * (1 + changePercent / 100);
+
+      _basePrices[ticker] = newPrice;
+      yield PriceUpdate(
+        ticker: ticker,
+        price: newPrice,
+        changePercent: changePercent,
+      );
+
+      index++;
     }
   }
 }
