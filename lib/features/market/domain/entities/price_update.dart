@@ -1,11 +1,11 @@
 class PriceUpdate {
   final String ticker;
   final double price;
-  final double change;
+  final double changePercent;
 
   const PriceUpdate({
     required this.ticker,
     required this.price,
-    required this.change,
+    required this.changePercent,
   });
 }
