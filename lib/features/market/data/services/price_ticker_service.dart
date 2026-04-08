@@ -2,7 +2,7 @@ import 'dart:math';
 
 import '../../domain/entities/price_update.dart';
 
-class PriceTicketService {
+class PriceTickerService {
   final _random = Random();
 
   final _basePrices = <String, double>{

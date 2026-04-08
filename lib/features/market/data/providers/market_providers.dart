@@ -1,0 +1,25 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../domain/entities/portfolio_stat.dart';
+import '../services/portfolio_stats_service.dart';
+import '../services/price_ticker_service.dart';
+
+final _priceTickerServiceProvider = Provider<PriceTickerService>(
+  (ref) => PriceTickerService(),
+);
+
+final _portfolioStatsServiceProvider = Provider<PortfolioStatsService>(
+  (ref) => PortfolioStatsService(),
+);
+
+final priceTickerProvider = StreamProvider((ref) {
+  final service = ref.watch(_priceTickerServiceProvider);
+  return service.priceStream;
+});
+
+final portfolioStatsProvider = FutureProvider.autoDispose<List<PortfolioStat>>((
+  ref,
+) async {
+  final service = ref.watch(_portfolioStatsServiceProvider);
+  return service.calculateStats(fakeholdings);
+});
