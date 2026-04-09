@@ -24,8 +24,18 @@ class _IsolateDemoPanelState extends State<IsolateDemoPanel> {
 
   Future<void> _startIsolate() async {
     setState(() => _status = 'Đang khởi động isolate...');
-    await _service.start();
-    setState(() => _status = 'Isolate đã sẵn sàng');
+    try {
+      await _service.start();
+      if (!mounted) {
+        return;
+      }
+      setState(() => _status = 'Isolate đã sẵn sàng');
+    } catch (_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _status = 'Không thể khởi động isolate');
+    }
   }
 
   Future<void> _runJob() async {
@@ -33,11 +43,24 @@ class _IsolateDemoPanelState extends State<IsolateDemoPanel> {
       _loading = true;
       _status = 'Đang tính toán trên isolate... (Sum 0..100M)';
     });
-    final result = await _service.calculateSum(100000000);
-    setState(() {
-      _loading = false;
-      _status = 'Kết quả: $result';
-    });
+    try {
+      final result = await _service.calculateSum(100000000);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _loading = false;
+        _status = 'Kết quả: $result';
+      });
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _loading = false;
+        _status = 'Tác vụ bị hủy: $error';
+      });
+    }
   }
 
   @override
