@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../data/providers/market_providers.dart';
+import '../widgets/isolate_demo_panel.dart';
 import '../widgets/price_ticker_card.dart';
 import '../widgets/stats_panel.dart';
 
@@ -98,6 +99,18 @@ class MarketPage extends ConsumerWidget {
               ),
             ),
           ),
+
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text(
+                'Isolate.spawn() – long-lived isolate',
+                style: AppTextStyles.titleSmall,
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: IsolateDemoPanel()),
+
           SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
       ),
