@@ -12,4 +12,6 @@ abstract final class AppColors {
   static const Color positiveGain = Color(0xFF00C896);
   static const Color negativeGain = Color(0xFFFF4D6A);
   static const Color divider = Color(0xFF2A2A40);
+  static const Color success = Color(0xFF4CAF50);
+  static const Color error = Color(0xFFEF5350);
 }
