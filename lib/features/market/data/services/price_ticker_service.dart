@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import '../../domain/entities/price_update.dart';
@@ -13,30 +14,27 @@ class PriceTickerService {
     'NVDA': 875.60,
   };
 
-  late final Stream<PriceUpdate> priceStream = _buildPriceStream()
-      .asBroadcastStream();
+  final _controller = StreamController<PriceUpdate>.broadcast();
+  Stream<PriceUpdate> get priceStream => _controller.stream;
 
-  Stream<PriceUpdate> _buildPriceStream() async* {
-    final tickers = _basePrices.keys.toList();
-    int index = 0;
+  PriceTickerService() {
+    for (var ticker in _basePrices.keys) {
+      _startIndividualTicker(ticker);
+    }
+  }
 
+  void _startIndividualTicker(String ticker) async {
     while (true) {
-      await Future<void>.delayed(const Duration(seconds: 1));
+      await Future.delayed(Duration(milliseconds: 500 + _random.nextInt(2000)));
 
-      final ticker = tickers[index % tickers.length];
       final base = _basePrices[ticker]!;
-
-      final changePercent = (_random.nextDouble() - 0.5) * 4;
-      final newPrice = base * (1 + changePercent / 100);
-
+      final change = (_random.nextDouble() - 0.5) * 4;
+      final newPrice = base * (1 + change / 100);
       _basePrices[ticker] = newPrice;
-      yield PriceUpdate(
-        ticker: ticker,
-        price: newPrice,
-        changePercent: changePercent,
-      );
 
-      index++;
+      _controller.add(
+        PriceUpdate(ticker: ticker, price: newPrice, changePercent: change),
+      );
     }
   }
 }

@@ -14,7 +14,7 @@ class MarketPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final priceAsync = ref.watch(priceTickerProvider);
+    final allPrices = ref.watch(marketStateProvider);
     final statsAsync = ref.watch(portfolioStatsProvider);
 
     return Scaffold(
@@ -76,18 +76,26 @@ class MarketPage extends ConsumerWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: priceAsync.when(
-              loading: () => const Padding(
-                padding: EdgeInsets.all(24),
+
+          allPrices.when(
+            loading: () => SliverToBoxAdapter(
+              child: const Padding(
+                padding: EdgeInsets.all(32),
                 child: Center(child: TradingSpinner()),
               ),
-              error: (error, stackTrace) => Padding(
-                padding: const EdgeInsets.all(16),
-                child: Center(child: Text('Stream lỗi: $error')),
-              ),
-              data: (update) => PriceTickerCard(update: update),
             ),
+            error: (err, stack) => SliverToBoxAdapter(
+              child: Center(child: Text('Lỗi Stream: $err')),
+            ),
+            data: (priceMap) {
+              return SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final ticker = priceMap.keys.elementAt(index);
+                  final update = priceMap[ticker]!;
+                  return PriceTickerCard(update: update);
+                }, childCount: priceMap.length),
+              );
+            },
           ),
 
           SliverToBoxAdapter(
@@ -105,7 +113,7 @@ class MarketPage extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: Text(
-                'Isolate.spawn() – long-lived isolate',
+                'Isolate.spawn() - long-lived isolate',
                 style: AppTextStyles.titleSmall,
               ),
             ),
