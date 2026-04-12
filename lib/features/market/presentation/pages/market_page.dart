@@ -7,6 +7,7 @@ import '../../data/providers/market_providers.dart';
 import '../widgets/isolate_demo_panel.dart';
 import '../widgets/price_ticker_card.dart';
 import '../widgets/stats_panel.dart';
+import '../widgets/trading_spinner.dart';
 
 class MarketPage extends ConsumerWidget {
   const MarketPage({super.key});
@@ -39,7 +40,7 @@ class MarketPage extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CircularProgressIndicator(),
+                      TradingSpinner(),
                       SizedBox(height: 12),
                       Text('compute() đang chạy trong isolate...'),
                     ],
@@ -79,7 +80,7 @@ class MarketPage extends ConsumerWidget {
             child: priceAsync.when(
               loading: () => const Padding(
                 padding: EdgeInsets.all(24),
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(child: TradingSpinner()),
               ),
               error: (error, stackTrace) => Padding(
                 padding: const EdgeInsets.all(16),
