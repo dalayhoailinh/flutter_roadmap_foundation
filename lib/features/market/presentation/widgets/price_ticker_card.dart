@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/animations/animation_constants.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../domain/entities/price_update.dart';
@@ -31,13 +32,25 @@ class PriceTickerCard extends StatelessWidget {
               child: Text(update.ticker, style: AppTextStyles.titleMedium),
             ),
             const Spacer(),
-            Text(
-              '\$${update.price.toStringAsFixed(2)}',
-              style: AppTextStyles.titleMedium.copyWith(color: color),
+            TweenAnimationBuilder<Color?>(
+              key: ValueKey(update.price),
+              tween: ColorTween(begin: color, end: AppColors.textPrimary),
+              curve: AnimationConstants.flashEase,
+              duration: AnimationConstants.priceFlash,
+              builder: (context, value, _) {
+                return Text(
+                  '\$${update.price.toStringAsFixed(2)}',
+                  style: AppTextStyles.titleMedium.copyWith(
+                    color: value ?? AppColors.textPrimary,
+                  ),
+                );
+              },
             ),
             const SizedBox(width: 16),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              height: 25,
+              width: 50,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
