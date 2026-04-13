@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../core/widgets/loading_overlay.dart';
 import '../../data/providers/market_providers.dart';
 import '../widgets/isolate_demo_panel.dart';
 import '../widgets/price_ticker_card.dart';
+import '../widgets/pulse_indicator.dart';
 import '../widgets/stats_panel.dart';
 import '../widgets/trading_spinner.dart';
 
@@ -36,15 +38,8 @@ class MarketPage extends ConsumerWidget {
             child: statsAsync.when(
               loading: () => const Padding(
                 padding: EdgeInsets.all(32),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TradingSpinner(),
-                      SizedBox(height: 12),
-                      Text('compute() đang chạy trong isolate...'),
-                    ],
-                  ),
+                child: LoadingOverlay(
+                  message: 'compute() đang chạy trong isolate...',
                 ),
               ),
               error: (error, stackTrace) => Padding(
@@ -62,14 +57,7 @@ class MarketPage extends ConsumerWidget {
                 children: [
                   Text('Live Prices', style: AppTextStyles.titleSmall),
                   const SizedBox(width: 8),
-                  Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: AppColors.success,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+                  PulseIndicator(),
                   const SizedBox(width: 4),
                   Text('1s stream', style: AppTextStyles.bodySmall),
                 ],
@@ -81,7 +69,7 @@ class MarketPage extends ConsumerWidget {
             loading: () => SliverToBoxAdapter(
               child: const Padding(
                 padding: EdgeInsets.all(32),
-                child: Center(child: TradingSpinner()),
+                child: LoadingOverlay(),
               ),
             ),
             error: (err, stack) => SliverToBoxAdapter(
