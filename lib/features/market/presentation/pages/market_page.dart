@@ -9,7 +9,6 @@ import '../widgets/isolate_demo_panel.dart';
 import '../widgets/price_ticker_card.dart';
 import '../widgets/pulse_indicator.dart';
 import '../widgets/stats_panel.dart';
-import '../widgets/trading_spinner.dart';
 
 class MarketPage extends ConsumerWidget {
   const MarketPage({super.key});
