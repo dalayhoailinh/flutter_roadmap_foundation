@@ -14,6 +14,23 @@ class CandlestickPainter extends CustomPainter {
   static const double _paddingTop = 16.0;
   static const double _paddingBottom = 8.0;
 
+  void _drawPriceLabel(Canvas canvas, double price, Offset position) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: price.toStringAsFixed(2),
+        style: const TextStyle(
+          color: AppColors.textSecondary,
+          fontSize: 10,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    tp.layout(maxWidth: CandlestickPainter._rightAxisWidth - 4);
+    tp.paint(canvas, position);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     if (data.isEmpty) return;
@@ -47,6 +64,12 @@ class CandlestickPainter extends CustomPainter {
     for (int g = 0; g <= gridCount; g++) {
       final y = chartTop + (g / gridCount) * chartHeight;
       canvas.drawLine(Offset(0, y), Offset(chartWidth, y), gridPaint);
+    }
+
+    for (int g = 0; g <= gridCount; g++) {
+      final y = chartTop + (g / gridCount) * chartHeight;
+      final price = displayMax - (g / gridCount) * (displayMax - displayMin);
+      _drawPriceLabel(canvas, price, Offset(chartWidth + 4, y - 7));
     }
 
     final wickPaint = Paint()..strokeWidth = 1.0;
