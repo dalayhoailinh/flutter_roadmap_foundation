@@ -6,6 +6,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../data/providers/candle_proviers.dart';
 import '../../data/providers/market_providers.dart';
 import '../widgets/candlestick_chart.dart';
+import '../widgets/pulse_indicator.dart';
 
 class ChartPage extends ConsumerWidget {
   final String ticker;
@@ -65,7 +66,15 @@ class ChartPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Candlestick Chart', style: AppTextStyles.titleSmall),
+              Row(
+                children: [
+                  const PulseIndicator(),
+                  const SizedBox(width: 6),
+                  Text('30 ngày gần nhất', style: AppTextStyles.titleSmall),
+                  const Spacer(),
+                  Text('${candles.length} nến', style: AppTextStyles.bodySmall),
+                ],
+              ),
               const SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
@@ -76,15 +85,56 @@ class ChartPage extends ConsumerWidget {
                 child: CandlestickChart(candles: candles),
               ),
               const SizedBox(height: 16),
+              Row(
+                children: [
+                  _LegendItem(
+                    color: AppColors.positiveGain,
+                    label: 'Tăng (close > open)',
+                  ),
+                  const SizedBox(width: 20),
+                  _LegendItem(
+                    color: AppColors.negativeGain,
+                    label: 'Giảm (close < open)',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
               Text(
-                'Mỗi nến = 1 ngày giao dịch.\n'
-                'Xanh (bullish): close > open. Đỏ (bearish): close < open.',
+                'Mỗi nến biểu diễn 1 ngày giao dịch.\n'
+                'Body = khoảng giá giữa Open và Close.\n'
+                'Wick = đỉnh (High) và đáy (Low) của phiên.',
                 style: AppTextStyles.bodySmall,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _LegendItem extends StatelessWidget {
+  final Color color;
+  final String label;
+
+  const _LegendItem({required this.color, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(width: 6),
+        Text(label, style: AppTextStyles.bodySmall),
+      ],
     );
   }
 }
