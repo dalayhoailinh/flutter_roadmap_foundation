@@ -38,6 +38,7 @@ class CandlestickPainter extends CustomPainter {
     final columnWidth = chartWidth / data.length;
     final bodyWidth = (columnWidth * 0.6).clamp(2.0, 18.0);
     final bodyPaint = Paint();
+    final wickPaint = Paint()..strokeWidth = 1.0;
 
     for (int i = 0; i < data.length; i++) {
       final candle = data[i];
@@ -53,6 +54,20 @@ class CandlestickPainter extends CustomPainter {
       final bodyTop = min(openY, closeY);
       final bodyBottom = max(openY, closeY);
       final bodyHeight = (bodyBottom - bodyTop).clamp(1.0, double.infinity);
+      final highY = priceToY(candle.high);
+      final lowY = priceToY(candle.low);
+
+      wickPaint.color = isUp ? AppColors.positiveGain : AppColors.negativeGain;
+      canvas.drawLine(
+        Offset(centerX, highY),
+        Offset(centerX, bodyTop),
+        wickPaint,
+      );
+      canvas.drawLine(
+        Offset(centerX, bodyBottom),
+        Offset(centerX, lowY),
+        wickPaint,
+      );
 
       canvas.drawRRect(
         RRect.fromRectAndRadius(
