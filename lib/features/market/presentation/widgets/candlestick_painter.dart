@@ -38,6 +38,17 @@ class CandlestickPainter extends CustomPainter {
     final columnWidth = chartWidth / data.length;
     final bodyWidth = (columnWidth * 0.6).clamp(2.0, 18.0);
     final bodyPaint = Paint();
+
+    const int gridCount = 5;
+    final gridPaint = Paint()
+      ..color = AppColors.divider
+      ..strokeWidth = 1.0;
+
+    for (int g = 0; g <= gridCount; g++) {
+      final y = chartTop + (g / gridCount) * chartHeight;
+      canvas.drawLine(Offset(0, y), Offset(chartWidth, y), gridPaint);
+    }
+
     final wickPaint = Paint()..strokeWidth = 1.0;
 
     for (int i = 0; i < data.length; i++) {
