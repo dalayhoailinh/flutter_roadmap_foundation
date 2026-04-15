@@ -5,7 +5,7 @@ import '../../domain/entities/price_update.dart';
 import '../services/portfolio_stats_service.dart';
 import '../services/price_ticker_service.dart';
 
-final _priceTickerServiceProvider = Provider<PriceTickerService>(
+final priceTickerServiceProvider = Provider<PriceTickerService>(
   (ref) => PriceTickerService(),
 );
 
@@ -23,7 +23,7 @@ final portfolioStatsProvider = FutureProvider.autoDispose<List<PortfolioStat>>((
 final marketStateProvider = StreamProvider<Map<String, PriceUpdate>>((
   ref,
 ) async* {
-  final service = ref.watch(_priceTickerServiceProvider);
+  final service = ref.watch(priceTickerServiceProvider);
   final Map<String, PriceUpdate> currentPrices = {};
 
   await for (final update in service.priceStream) {
