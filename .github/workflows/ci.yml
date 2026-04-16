@@ -7,6 +7,7 @@ on:
     branches: [master]
 
 jobs:
+  # Job 1: Analyze and Test
   test:
     name: Analyze & Test
     runs-on: ubuntu-latest
@@ -30,3 +31,39 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+  # Job 2: Build APK
+  build-apk:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release --no-tree-shake-icons
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
