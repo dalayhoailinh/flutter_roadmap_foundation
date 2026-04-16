@@ -10,7 +10,7 @@ class RouterNotifier extends AsyncNotifier<void> implements Listenable {
 
   @override
   Future<void> build() async {
-    ref.listen<AuthState>(authProvider, (_, __) => notifyListeners());
+    ref.listen<AuthState>(authProvider, (_, _) => notifyListeners());
   }
 
   @override
