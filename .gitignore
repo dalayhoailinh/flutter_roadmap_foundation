@@ -33,6 +33,7 @@ migrate_working_dir/
 /build/
 /coverage/
 full_code.md
+GITHUB_HISTORY.md
 
 # Symbolication related
 app.*.symbols
