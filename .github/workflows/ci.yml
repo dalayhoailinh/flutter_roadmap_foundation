@@ -67,3 +67,33 @@ jobs:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 7
+
+  # Job 3: Build Web (Wasm)
+  build-web:
+    name: Build Web (Wasm)
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --wasm --no-tree-shake-icons || flutter build web --no-tree-shake-icons
+
+      - name: Upload Web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web/
+          retention-days: 7
