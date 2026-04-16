@@ -1,6 +1,12 @@
 # Flutter Roadmap Foundation
 
-Dự án học Flutter theo lộ trình 2026 — Q1, từ nền móng đến checkpoint `feat: migrate CandleData to freezed with value equality`.
+[![Flutter CI](https://github.com/<your-username>/<your-repo>/actions/workflows/ci.yml/badge.svg)](https://github.com/<your-username>/<your-repo>/actions/workflows/ci.yml)
+
+App trading Fintech demo được build trong Q1 roadmap 2026. Tích hợp:
+- Riverpod state management với StreamProvider và StateNotifier
+- GoRouter với ShellRoute và auth redirect guard
+- CustomPainter candlestick chart với realtime tick aggregation
+- GitHub Actions CI: analyze → test → build APK tự động
 
 ## Kiến trúc
 
@@ -46,6 +52,7 @@ lib/
 
 ```bash
 flutter pub get
+flutter pub run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
@@ -59,3 +66,16 @@ flutter run
 - go_router ^17.2.0
 - freezed + build_runner
 - CustomPaint / Canvas API
+
+## Chạy test
+
+```bash
+flutter test
+```
+
+## CI/CD
+
+Mỗi push lên `master` tự động:
+1. `flutter analyze` — kiểm tra lỗi tĩnh
+2. `flutter test` — chạy toàn bộ test suite
+3. Build APK release — artifact có thể download từ tab Actions
