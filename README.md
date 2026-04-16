@@ -23,6 +23,7 @@ lib/
     ├── auth/           # AuthState enum, AuthNotifier, RouterNotifier, LoginPage
     ├── counter/        # Tuần 1: Entity, Repository, UseCase, Page
     ├── market/         # Stream, isolate, chart, candlestick, freezed model
+    ├── native/         # Tuần 11: Dart FFI (native_math_ffi.dart) + Platform Channel (device_channel.dart)
     ├── portfolio/      # Riverpod async state + portfolio layout
     ├── shell/          # AppShell với BottomNavigationBar
     └── watchlist/      # StateNotifier provider, WatchlistPage
@@ -42,6 +43,7 @@ lib/
 | 8    | Code generation – `build_runner`, `freezed`, `CandleData` value equality |
 | 9    | Git nâng cao + CI/CD cơ bản – rebase/cherry-pick practice, GitHub Actions analyze/test/build APK |
 | 10   | Flutter Web + deploy – build web và deploy production |
+| 11   | Dart FFI + Platform Channel – Native code interop (C via FFI, Kotlin via MethodChannel) |
 
 ## Checkpoint hiện tại
 
@@ -51,6 +53,7 @@ lib/
 - `CandleData` đã migrate sang `freezed` để so sánh theo value thay vì reference.
 - CI/CD qua GitHub Actions đã chạy analyze + test + build APK artifact.
 - Web app đã deploy production (Vercel).
+- **Week 11:** Dart FFI (C function binding) + Platform Channel (MethodChannel Kotlin) hoàn tất. Demo gọi C function tính sum via FFI, và lấy device info via MethodChannel.
 
 ## Chạy thử
 
@@ -92,8 +95,8 @@ Mỗi push lên `master` tự động:
 
 ## Tiến độ Roadmap
 
-- Đã hoàn thành: Tuần 1 -> Tuần 10 (Q1)
-- Đang hướng tới: Tuần 11 (Dart FFI + Platform Channel)
+- Đã hoàn thành: Tuần 1 -> Tuần 11 (Q1 + Week 11 native interop)
+- Đang hướng tới: Tuần 12+ (Rust via flutter_rust_bridge trong Q2)
 
 ## 🌐 Demo Live
 
