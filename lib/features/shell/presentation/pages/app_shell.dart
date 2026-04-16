@@ -8,7 +8,7 @@ class AppShell extends StatelessWidget {
 
   const AppShell({super.key, required this.child});
 
-  static const _tabs = ['/', '/watchlist', '/counter', '/market'];
+  static const _tabs = ['/', '/watchlist', '/counter', '/market', '/native'];
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,12 @@ class AppShell extends StatelessWidget {
           BottomNavigationBarItem(
             icon: const Icon(Icons.show_chart),
             label: 'Market',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.memory_rounded,
+            ), // Chip icon hints at "native hardware"
+            label: 'Native',
           ),
         ],
       ),

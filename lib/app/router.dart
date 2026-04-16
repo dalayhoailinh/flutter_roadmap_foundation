@@ -8,6 +8,7 @@ import '../features/counter/domain/usecases/counter_use_cases.dart';
 import '../features/counter/presentation/counter_page.dart';
 import '../features/market/presentation/pages/chart_page.dart';
 import '../features/market/presentation/pages/market_page.dart';
+import '../features/native/presentation/pages/native_demo_page.dart';
 import '../features/portfolio/presentation/pages/portfolio_page.dart';
 import '../features/shell/presentation/pages/app_shell.dart';
 import '../features/watchlist/presentation/pages/watchlist_page.dart';
@@ -46,6 +47,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/market',
             builder: (context, state) => const MarketPage(),
+          ),
+          GoRoute(
+            path: '/native',
+            builder: (context, state) => const NativeDemoPage(),
           ),
         ],
       ),
