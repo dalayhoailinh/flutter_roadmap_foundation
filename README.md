@@ -2,7 +2,7 @@
 
 [![Flutter CI](https://github.com/<your-username>/<your-repo>/actions/workflows/ci.yml/badge.svg)](https://github.com/<your-username>/<your-repo>/actions/workflows/ci.yml)
 
-App trading Fintech demo được build trong Q1 roadmap 2026. Tích hợp:
+App trading Fintech demo được build trong Q1 roadmap 2026 (đã hoàn thành đến Tuần 10). Tích hợp:
 - Riverpod state management với StreamProvider và StateNotifier
 - GoRouter với ShellRoute và auth redirect guard
 - CustomPainter candlestick chart với realtime tick aggregation
@@ -40,6 +40,8 @@ lib/
 | 6    | Animation – Loading UI và spinner/pulse cho trải nghiệm thị trường |
 | 7    | CustomPaint – Candlestick chart thủ công bằng Canvas API |
 | 8    | Code generation – `build_runner`, `freezed`, `CandleData` value equality |
+| 9    | Git nâng cao + CI/CD cơ bản – rebase/cherry-pick practice, GitHub Actions analyze/test/build APK |
+| 10   | Flutter Web + deploy – build web và deploy production |
 
 ## Checkpoint hiện tại
 
@@ -47,6 +49,8 @@ lib/
 - Market page có stream giá realtime, isolate demo và chart page riêng cho từng ticker.
 - Candlestick chart được tự vẽ bằng `CustomPainter`, không dùng thư viện chart ngoài.
 - `CandleData` đã migrate sang `freezed` để so sánh theo value thay vì reference.
+- CI/CD qua GitHub Actions đã chạy analyze + test + build APK artifact.
+- Web app đã deploy production (Vercel).
 
 ## Chạy thử
 
@@ -54,6 +58,12 @@ lib/
 flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 flutter run
+```
+
+Chạy bản web local:
+
+```bash
+flutter run -d chrome
 ```
 
 Đăng nhập bằng nút "Đăng nhập (Demo)" — không cần tài khoản thật.
@@ -80,6 +90,16 @@ Mỗi push lên `master` tự động:
 2. `flutter test` — chạy toàn bộ test suite
 3. Build APK release — artifact có thể download từ tab Actions
 
+## Tiến độ Roadmap
+
+- Đã hoàn thành: Tuần 1 -> Tuần 10 (Q1)
+- Đang hướng tới: Tuần 11 (Dart FFI + Platform Channel)
+
 ## 🌐 Demo Live
 
 **Web:** https://flutter-roadmap-foundation-xxx.vercel.app
+
+## Tài liệu thêm
+
+- Lịch sử GitHub từ commit đầu tiên đến hiện tại: [GITHUB_HISTORY.md](GITHUB_HISTORY.md)
+- Snapshot toàn bộ code trong lib: [full_code.md](full_code.md)
