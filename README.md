@@ -1,22 +1,25 @@
 # Flutter Roadmap Foundation
 
-Dự án học Flutter theo lộ trình 2026 — Q1, Tháng 1.
+Dự án học Flutter theo lộ trình 2026 — Q1, từ nền móng đến checkpoint `feat: migrate CandleData to freezed with value equality`.
 
 ## Kiến trúc
 
 ```
 lib/
 ├── app/
-│   ├── app.dart        # MaterialApp.router, ConsumerWidget
+│   ├── app.dart        # MaterialApp.router + ProviderScope
 │   └── router.dart     # GoRouter với auth guard và ShellRoute
 ├── core/
-│   └── constants/      # AppColors, AppTextStyles
+│   ├── animations/     # Hằng số animation
+│   ├── constants/      # AppColors, AppTextStyles
+│   └── widgets/        # Widget dùng chung như LoadingOverlay
 └── features/
     ├── auth/           # AuthState enum, AuthNotifier, RouterNotifier, LoginPage
     ├── counter/        # Tuần 1: Entity, Repository, UseCase, Page
-    ├── portfolio/      # Tuần 2–3: Layout Sliver, AsyncNotifier provider
-    ├── shell/          # Tuần 4: AppShell với BottomNavigationBar
-    └── watchlist/      # Tuần 3: StateNotifier provider, WatchlistPage
+    ├── market/         # Stream, isolate, chart, candlestick, freezed model
+    ├── portfolio/      # Riverpod async state + portfolio layout
+    ├── shell/          # AppShell với BottomNavigationBar
+    └── watchlist/      # StateNotifier provider, WatchlistPage
 ```
 
 ## Tính năng đã hoàn thành
@@ -27,6 +30,17 @@ lib/
 | 2    | Portfolio layout – CustomScrollView, SliverAppBar, SliverList |
 | 3    | Riverpod state – StateNotifier (Watchlist), AsyncNotifier (Portfolio) |
 | 4    | GoRouter navigation – Auth guard, ShellRoute, bottom nav, deep link ready |
+| 5    | Dart async – Stream, isolate, luồng dữ liệu thị trường realtime |
+| 6    | Animation – Loading UI và spinner/pulse cho trải nghiệm thị trường |
+| 7    | CustomPaint – Candlestick chart thủ công bằng Canvas API |
+| 8    | Code generation – `build_runner`, `freezed`, `CandleData` value equality |
+
+## Checkpoint hiện tại
+
+- Auth flow demo vẫn chạy bằng nút "Đăng nhập (Demo)", không cần tài khoản thật.
+- Market page có stream giá realtime, isolate demo và chart page riêng cho từng ticker.
+- Candlestick chart được tự vẽ bằng `CustomPainter`, không dùng thư viện chart ngoài.
+- `CandleData` đã migrate sang `freezed` để so sánh theo value thay vì reference.
 
 ## Chạy thử
 
@@ -43,3 +57,5 @@ flutter run
 - Dart 3.x
 - flutter_riverpod ^3.3.1
 - go_router ^17.2.0
+- freezed + build_runner
+- CustomPaint / Canvas API
