@@ -1,15 +1,14 @@
-class CandleData {
-  final DateTime time;
-  final double open;
-  final double high;
-  final double low;
-  final double close;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const CandleData({
-    required this.time,
-    required this.open,
-    required this.high,
-    required this.low,
-    required this.close,
-  });
+part 'candle_data.freezed.dart';
+
+@freezed
+abstract class CandleData with _$CandleData {
+  const factory CandleData({
+    required DateTime time,
+    required double open,
+    required double high,
+    required double low,
+    required double close,
+  }) = _CandleData;
 }

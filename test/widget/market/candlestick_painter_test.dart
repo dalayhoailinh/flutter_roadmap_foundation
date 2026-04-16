@@ -37,4 +37,44 @@ void main() {
       expect(painter1.shouldRepaint(painter2), true);
     });
   });
+
+  group('CandleData value equality (sau freezed migration)', () {
+    test('hai CandleData cùng field là equal', () {
+      final time = DateTime(2026, 4, 15, 10, 0);
+      final a = CandleData(
+        time: time,
+        open: 100.0,
+        high: 105.0,
+        low: 98.0,
+        close: 102.0,
+      );
+      final b = CandleData(
+        time: time,
+        open: 100.0,
+        high: 105.0,
+        low: 98.0,
+        close: 102.0,
+      );
+
+      expect(a, equals(b));
+    });
+
+    test('copyWith tạo bản copy với field được thay đổi', () {
+      final time = DateTime(2026, 4, 15, 10, 0);
+      final original = CandleData(
+        time: time,
+        open: 100.0,
+        high: 105.0,
+        low: 98.0,
+        close: 102.0,
+      );
+
+      final updated = original.copyWith(close: 108.0);
+
+      expect(updated.open, 100.0);
+      expect(updated.high, 105.0);
+      expect(updated.close, 108.0);
+      expect(original.close, 102.0);
+    });
+  });
 }
