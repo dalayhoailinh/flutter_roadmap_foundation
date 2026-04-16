@@ -14,4 +14,5 @@ abstract final class AppColors {
   static const Color divider = Color(0xFF2A2A40);
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFEF5350);
+  static const Color overlay = Color(0x80000000);
 }
