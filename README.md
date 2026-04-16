@@ -79,3 +79,7 @@ Mỗi push lên `master` tự động:
 1. `flutter analyze` — kiểm tra lỗi tĩnh
 2. `flutter test` — chạy toàn bộ test suite
 3. Build APK release — artifact có thể download từ tab Actions
+
+## 🌐 Demo Live
+
+**Web:** https://flutter-roadmap-foundation-xxx.vercel.app
