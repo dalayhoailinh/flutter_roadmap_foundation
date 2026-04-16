@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
+// AppTextStyles — typography scale theo thiết kế Fintech
 abstract final class AppTextStyles {
   static const TextStyle displayLarge = TextStyle(
     fontSize: 32,
