@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +10,7 @@ import '../widgets/isolate_demo_panel.dart';
 import '../widgets/price_ticker_card.dart';
 import '../widgets/pulse_indicator.dart';
 import '../widgets/stats_panel.dart';
+import '../widgets/web_unsupported_panel.dart';
 
 class MarketPage extends ConsumerWidget {
   const MarketPage({super.key});
@@ -96,16 +98,27 @@ class MarketPage extends ConsumerWidget {
             ),
           ),
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: Text(
-                'Isolate.spawn() - long-lived isolate',
-                style: AppTextStyles.titleSmall,
+          if (!kIsWeb) ...[
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                child: Text(
+                  'Isolate.spawn() - long-lived isolate',
+                  style: AppTextStyles.titleSmall,
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: IsolateDemoPanel()),
+            const SliverToBoxAdapter(child: IsolateDemoPanel()),
+          ] else ...[
+            const SliverToBoxAdapter(
+              child: WebUnsupportedPanel(
+                featureName: 'Isolate.spawn() Demo',
+                reason:
+                    'Native isolates are not supported on flutter web. '
+                    'On web, compute() uses a web worker under the hood.',
+              ),
+            ),
+          ],
 
           SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
